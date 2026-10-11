@@ -1,0 +1,18 @@
+{
+  "name": "application-learn-cybersecurity-students",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Static analysis tool that detects and pedagogically explains common security vulnerabilities in JavaScript/Node.js code for students and junior developers.",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "test:backend": "npm test --workspace=backend"
+  },
+  "license": "MIT"
+}
