@@ -25,17 +25,3 @@ model Analisis {
 
   @@map("analisis")
 }
-
-/// One response to the perception/acceptance survey described in the
-/// thesis's specific objectives (usefulness, clarity, ease of use — not a
-/// measurement of learning outcomes).
-model RespuestaEncuesta {
-  id                    String   @id @default(cuid())
-  utilidadPercibida     Int
-  claridadExplicaciones Int
-  facilidadUso          Int
-  comentarios           String?
-  creadoEn              DateTime @default(now())
-
-  @@map("respuestas_encuesta")
-}

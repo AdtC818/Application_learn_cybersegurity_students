@@ -2,9 +2,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import { Contenedor } from '../../config/contenedor';
 import { AnalisisController } from './controllers/AnalisisController';
-import { EncuestaController } from './controllers/EncuestaController';
 import { crearRutasAnalisis } from './routes/analisis.routes';
-import { crearRutasEncuesta } from './routes/encuesta.routes';
 
 /**
  * Builds the Express app, wiring HTTP routes to controllers built from the
@@ -22,11 +20,9 @@ export function crearServidor(contenedor: Contenedor): Express {
     contenedor.casoUsoAnalizarCodigo,
     contenedor.casoUsoConsultarHistorial,
   );
-  const encuestaController = new EncuestaController(contenedor.casoUsoRegistrarEncuesta);
 
   app.get('/api/salud', (_req, res) => res.json({ estado: 'ok' }));
   app.use('/api', crearRutasAnalisis(analisisController));
-  app.use('/api', crearRutasEncuesta(encuestaController));
 
   return app;
 }
