@@ -1,0 +1,892 @@
+/* =========================================================
+   Panel de aprendizaje y laboratorios: etapas, escenas SVG,
+   lecturas, veredictos, comparaciones y retos.
+   ========================================================= */
+
+.aprendizaje {
+  position: relative;
+}
+
+/* ---------- Etapas ---------- */
+
+.etapas {
+  display: flex;
+  gap: 0.2rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--trazo);
+}
+
+.etapa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1rem;
+  margin-bottom: -1px;
+  color: var(--tinta-suave);
+  font-weight: 650;
+  white-space: nowrap;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.etapa:hover {
+  color: var(--tinta);
+}
+
+.etapa-num {
+  display: inline-grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  font-size: 0.8rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.etapa-activa {
+  color: var(--tinta);
+  border-bottom-color: var(--dato);
+}
+
+.etapa-activa .etapa-num {
+  color: var(--sobre-accion);
+  background: var(--dato);
+  border-color: var(--dato);
+}
+
+.etapa-hecha {
+  color: var(--defensa);
+}
+
+.etapa-hecha .etapa-num {
+  background: var(--defensa-fondo);
+}
+
+.etapa-panel {
+  padding-top: 1.3rem;
+}
+
+.etapa-pie {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.etapa-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.2rem;
+  margin-bottom: 1.1rem;
+}
+
+.etapa-ayuda {
+  margin: 0;
+  color: var(--tinta-suave);
+  font-size: 0.92rem;
+}
+
+/* Sello de laboratorio completado */
+.sello {
+  position: absolute;
+  top: 0.35rem;
+  right: 0;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  color: var(--defensa);
+  font-weight: 750;
+  background: var(--lamina);
+  border: 2px solid var(--defensa);
+  border-radius: 3px;
+  transform: rotate(-3deg);
+}
+
+.sello-nuevo {
+  animation: sellar 0.55s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+
+@keyframes sellar {
+  from {
+    opacity: 0;
+    transform: scale(2.2) rotate(-14deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-3deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .sello {
+    position: static;
+    margin-bottom: 0.7rem;
+    transform: none;
+  }
+}
+
+/* ---------- Etapa 1: la historia en tres pasos ---------- */
+
+.gancho {
+  max-width: 42rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.22rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.flujo {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.7rem;
+  margin: 0 0 0.6rem;
+  padding: 0;
+  list-style: none;
+}
+
+.flujo-paso {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.95rem;
+  background: var(--plano);
+  border: 1px dashed var(--trazo-claro);
+  border-radius: var(--radio);
+  opacity: 0;
+  animation: entrada-paso 0.55s ease forwards;
+}
+
+.flujo-paso-0 {
+  animation-delay: 0.05s;
+}
+.flujo-paso-1 {
+  animation-delay: 0.6s;
+}
+.flujo-paso-2 {
+  animation-delay: 1.15s;
+}
+
+@keyframes entrada-paso {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.flujo-icono {
+  display: inline-flex;
+  margin-bottom: 0.3rem;
+}
+.flujo-paso-0 .flujo-icono {
+  color: var(--dato);
+}
+.flujo-paso-1 .flujo-icono {
+  color: var(--ataque);
+}
+.flujo-paso-2 .flujo-icono {
+  color: var(--aviso);
+}
+
+.flujo-texto {
+  color: var(--tinta-suave);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.flujo-flecha {
+  position: absolute;
+  top: 50%;
+  right: -1.6rem;
+  width: 1.45rem;
+  height: 0.9rem;
+  margin-top: -0.45rem;
+  fill: none;
+  stroke: var(--trazo-claro);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 760px) {
+  .flujo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+  .flujo-flecha {
+    top: auto;
+    right: auto;
+    bottom: -1.35rem;
+    left: 50%;
+    margin: 0 0 0 -0.7rem;
+    transform: rotate(90deg);
+  }
+}
+
+.sub {
+  margin: 1.5rem 0 0.6rem;
+  color: var(--tinta-suave);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.regla,
+.reto-regla {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-top: 1.3rem;
+  padding: 0.85rem 1rem;
+  background: var(--defensa-fondo);
+  border: 1px solid rgba(63, 224, 160, 0.45);
+  border-radius: var(--radio);
+}
+
+.regla svg,
+.reto-regla svg {
+  flex: none;
+  color: var(--defensa);
+}
+
+.detalle-analisis {
+  margin-top: 1.1rem;
+  padding: 0.65rem 0.95rem;
+  background: var(--plano);
+  border: 1px solid var(--trazo);
+  border-radius: var(--radio);
+}
+
+.detalle-analisis summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.detalle-analisis p {
+  margin-top: 0.6rem;
+  color: var(--tinta-suave);
+  max-width: 46rem;
+}
+
+/* ---------- Alternador vulnerable / seguro ---------- */
+
+.alternador {
+  display: inline-flex;
+  border: 1px solid var(--trazo-claro);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.alternador-opcion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  color: var(--tinta-suave);
+  font-weight: 650;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.alternador-opcion:hover {
+  color: var(--tinta);
+  background: rgba(108, 196, 255, 0.08);
+}
+
+.alternador-opcion[aria-pressed='true'] {
+  color: var(--sobre-accion);
+}
+.alternador-vulnerable[aria-pressed='true'] {
+  background: var(--ataque);
+}
+.alternador-seguro[aria-pressed='true'] {
+  background: var(--defensa);
+}
+
+/* ---------- Estructura de un laboratorio ---------- */
+
+.lab {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.lab-fila {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.lab-compacto .lab-fila {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lab-controles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.95rem;
+}
+
+.lab-controles .campo {
+  width: 100%;
+}
+
+.lab-escena {
+  padding: 0.6rem;
+  background: var(--plano-2);
+  border: 1px dashed var(--trazo);
+  border-radius: var(--radio);
+}
+
+.lab-lecturas {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lab-resultado {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+@media (max-width: 860px) {
+  .lab-fila {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Lecturas, veredictos y tablas ---------- */
+
+.lectura {
+  background: var(--plano);
+  border: 1px solid var(--trazo);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.lectura-titulo {
+  padding: 0.4rem 0.85rem;
+  color: var(--tinta-suave);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--lamina-2);
+  border-bottom: 1px solid var(--trazo);
+}
+
+.lectura-cuerpo {
+  padding: 0.8rem 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.lectura-ataque {
+  border-color: rgba(255, 90, 95, 0.6);
+}
+.lectura-defensa {
+  border-color: rgba(63, 224, 160, 0.6);
+}
+.lectura-dato {
+  border-color: var(--trazo-claro);
+}
+
+.consulta {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.cons-entrada {
+  padding: 0 2px;
+  color: var(--aviso);
+  background: var(--aviso-fondo);
+  border-radius: 2px;
+}
+
+.cons-inyectado {
+  color: #ff8c90;
+  font-weight: 700;
+  background: var(--ataque-fondo);
+  text-decoration: underline wavy var(--ataque);
+  text-underline-offset: 3px;
+}
+
+.parametros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  margin-top: 0.5rem;
+}
+
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.2rem;
+  margin-top: 0.7rem;
+  color: var(--tinta-suave);
+  font-family: var(--fuente-ui);
+  font-size: 0.82rem;
+}
+
+.leyenda-item {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 0.4rem;
+}
+
+.muestra {
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 2px;
+}
+.muestra-entrada {
+  background: var(--aviso-fondo);
+  border: 1px solid var(--aviso);
+}
+.muestra-inyectado {
+  background: var(--ataque-fondo);
+  border: 1px solid var(--ataque);
+}
+
+.veredicto {
+  padding: 0.75rem 1rem;
+  background: var(--lamina);
+  border: 1px solid var(--trazo);
+  border-left-width: 4px;
+  border-radius: var(--radio);
+}
+
+.veredicto-titulo {
+  display: block;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+.veredicto-texto {
+  margin-top: 0.2rem;
+  color: var(--tinta-suave);
+  font-size: 0.92rem;
+}
+
+.veredicto-brecha {
+  background: var(--ataque-fondo);
+  border-color: var(--ataque);
+}
+.veredicto-brecha .veredicto-titulo {
+  color: #ff8c90;
+}
+.veredicto-bloqueado,
+.veredicto-ok {
+  background: var(--defensa-fondo);
+  border-color: var(--defensa);
+}
+.veredicto-bloqueado .veredicto-titulo,
+.veredicto-ok .veredicto-titulo {
+  color: var(--defensa);
+}
+.veredicto-aviso {
+  background: var(--aviso-fondo);
+  border-color: var(--aviso);
+}
+.veredicto-aviso .veredicto-titulo {
+  color: var(--aviso);
+}
+.veredicto-neutro {
+  background: var(--dato-fondo);
+  border-color: var(--dato);
+}
+
+.tabla-envoltura {
+  overflow-x: auto;
+  border: 1px solid var(--trazo);
+  border-radius: var(--radio);
+}
+
+.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--fuente-codigo);
+  font-size: 0.84rem;
+}
+
+.tabla-datos th {
+  padding: 0.4rem 0.7rem;
+  color: var(--tinta-suave);
+  font-weight: 600;
+  text-align: left;
+  background: var(--lamina-2);
+}
+
+.tabla-datos td {
+  padding: 0.4rem 0.7rem;
+  border-top: 1px solid var(--trazo);
+}
+
+.dato-filtrado {
+  color: #ff8c90;
+  font-weight: 700;
+}
+
+/* ---------- Escenas SVG ---------- */
+
+.escena {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.escena-aviso {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  /* En celular el dibujo conserva un tamaño legible y se desliza de lado. */
+  .escena-marco {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .escena-marco .escena {
+    min-width: 440px;
+  }
+
+  .escena-aviso {
+    display: block;
+    margin: 0.35rem 0 0;
+    color: var(--tinta-suave);
+    font-size: 0.78rem;
+    text-align: center;
+  }
+
+  /* Las cuatro etapas caben siempre en el ancho de la pantalla. */
+  .etapas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    overflow: visible;
+  }
+
+  .etapa {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.3rem;
+    padding: 0.6rem 0.15rem 0.55rem;
+    font-size: 0.8rem;
+  }
+}
+
+.esc-texto {
+  fill: var(--tinta);
+  font-family: var(--fuente-ui);
+  font-size: 12.5px;
+  font-weight: 650;
+}
+
+.esc-texto-chico {
+  fill: var(--tinta-suave);
+  font-family: var(--fuente-ui);
+  font-size: 11.5px;
+}
+
+.esc-sub {
+  fill: var(--tinta-suave);
+  font-family: var(--fuente-ui);
+  font-size: 11px;
+}
+
+.esc-mono {
+  fill: var(--tinta);
+  font-family: var(--fuente-codigo);
+  font-size: 11px;
+}
+
+.esc-ataque {
+  fill: #ff8c90;
+}
+.esc-defensa {
+  fill: var(--defensa);
+}
+.esc-dato {
+  fill: var(--dato);
+}
+.esc-apagado {
+  fill: var(--tinta-tenue);
+}
+
+.nodo {
+  color: var(--tinta);
+}
+.nodo rect {
+  fill: var(--lamina-2);
+  stroke: var(--trazo-claro);
+  stroke-width: 1.5;
+}
+.nodo-ataque {
+  color: var(--ataque);
+}
+.nodo-ataque rect {
+  fill: var(--ataque-fondo);
+  stroke: var(--ataque);
+}
+.nodo-defensa {
+  color: var(--defensa);
+}
+.nodo-defensa rect {
+  fill: var(--defensa-fondo);
+  stroke: var(--defensa);
+}
+.nodo-dato {
+  color: var(--dato);
+}
+.nodo-dato rect {
+  fill: var(--dato-fondo);
+  stroke: var(--dato);
+}
+.nodo-apagado {
+  opacity: 0.45;
+}
+
+.enlace {
+  fill: none;
+  stroke: var(--tinta-suave);
+  stroke-width: 2;
+}
+.enlace-ataque {
+  stroke: var(--ataque);
+}
+.enlace-defensa {
+  stroke: var(--defensa);
+}
+.enlace-dato {
+  stroke: var(--dato);
+}
+.enlace-apagado {
+  stroke: var(--trazo-claro);
+}
+
+.paquete circle {
+  fill: var(--tinta);
+}
+.paquete-ataque circle {
+  fill: var(--ataque);
+  filter: drop-shadow(0 0 5px var(--ataque));
+}
+.paquete-defensa circle {
+  fill: var(--defensa);
+  filter: drop-shadow(0 0 5px var(--defensa));
+}
+.paquete-dato circle {
+  fill: var(--dato);
+  filter: drop-shadow(0 0 5px var(--dato));
+}
+.paquete-texto {
+  fill: var(--tinta);
+}
+
+.globo rect {
+  fill: var(--plano);
+  stroke: var(--trazo-claro);
+  stroke-width: 1;
+}
+.globo-ataque rect {
+  stroke: var(--ataque);
+}
+.globo-defensa rect {
+  stroke: var(--defensa);
+}
+.globo-dato rect {
+  stroke: var(--dato);
+}
+
+.impacto {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: impactar 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.impacto circle {
+  stroke-width: 2;
+}
+.impacto path {
+  fill: none;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.impacto-ataque circle {
+  fill: #3a1420;
+  stroke: var(--ataque);
+}
+.impacto-ataque path {
+  stroke: var(--ataque);
+}
+.impacto-defensa circle {
+  fill: #0d3a34;
+  stroke: var(--defensa);
+}
+.impacto-defensa path {
+  stroke: var(--defensa);
+}
+
+@keyframes impactar {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- Etapa 3: comparación ---------- */
+
+.comparado {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.comparado-lado {
+  min-width: 0;
+  border: 1px solid var(--trazo);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.comparado-mal {
+  border-color: rgba(255, 90, 95, 0.55);
+}
+.comparado-bien {
+  border-color: rgba(63, 224, 160, 0.55);
+}
+
+.comparado-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.55rem 0.9rem;
+  font-size: 1rem;
+  background: var(--lamina-2);
+  border-bottom: 1px solid var(--trazo);
+}
+.comparado-mal .comparado-titulo {
+  color: #ff8c90;
+}
+.comparado-bien .comparado-titulo {
+  color: var(--defensa);
+}
+
+.comparado-copiar {
+  margin-left: auto;
+}
+
+.comparado .bloque-codigo {
+  border: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 900px) {
+  .comparado {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Etapa 4: reto ---------- */
+
+.reto-pregunta {
+  max-width: 44rem;
+  font-size: 1.2rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.reto-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 1.1rem 0 0.4rem;
+}
+
+.reto-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  background: var(--plano);
+  border: 1px solid var(--trazo-claro);
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.reto-opcion:hover {
+  border-color: var(--dato);
+}
+
+.reto-opcion.bien {
+  background: var(--defensa-fondo);
+  border-color: var(--defensa);
+}
+.reto-opcion.mal {
+  background: var(--ataque-fondo);
+  border-color: var(--ataque);
+}
+
+.reto-letra {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-weight: 700;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.reto-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.reto-codigo {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--tinta);
+}
+
+.reto-comentario {
+  font-family: var(--fuente-ui);
+  font-size: 0.93rem;
+  color: var(--tinta-suave);
+}
+
+.reto-pista {
+  margin: 0.4rem 0 0;
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+}

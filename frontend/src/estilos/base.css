@@ -1,0 +1,459 @@
+/* =========================================================
+   Base: tokens, tipografía, controles y la "lámina" (el marco
+   de plano técnico que usan todos los bloques de la app).
+   ========================================================= */
+
+:root {
+  /* Superficies (azul de plano técnico) */
+  --plano: #08182c;
+  --plano-2: #0b1f38;
+  --lamina: #0e2540;
+  --lamina-2: #133257;
+  --trazo: #2b4c74;
+  --trazo-claro: #4d72a2;
+
+  /* Tinta */
+  --tinta: #e8f0fb;
+  --tinta-suave: #9db3d0;
+  --tinta-tenue: #7f97b6;
+
+  /* Semántica: ataque / defensa / dato / aviso */
+  --ataque: #ff5a5f;
+  --ataque-fondo: rgba(255, 90, 95, 0.13);
+  --defensa: #3fe0a0;
+  --defensa-fondo: rgba(63, 224, 160, 0.13);
+  --dato: #6cc4ff;
+  --dato-fondo: rgba(108, 196, 255, 0.13);
+  --aviso: #ffc857;
+  --aviso-fondo: rgba(255, 200, 87, 0.14);
+
+  /* Severidades */
+  --sev-critica: #ff4d6d;
+  --sev-alta: #ff9a3c;
+  --sev-media: #f5d547;
+  --sev-baja: #6cc4ff;
+
+  /* Texto sobre colores de acción */
+  --sobre-accion: #04101f;
+
+  --fuente-ui: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
+  --fuente-codigo: 'JetBrains Mono Variable', ui-monospace, Consolas, Menlo, monospace;
+
+  --radio: 3px;
+  --ancho-max: 1180px;
+  --gutter: clamp(14px, 3.4vw, 28px);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--fuente-ui);
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--tinta);
+  background-color: var(--plano);
+  /* Papel cuadriculado: cuadrícula fina cada 24px y marcada cada 120px */
+  background-image:
+    linear-gradient(rgba(120, 170, 230, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 170, 230, 0.09) 1px, transparent 1px),
+    linear-gradient(rgba(120, 170, 230, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 170, 230, 0.04) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--dato);
+}
+
+code,
+pre,
+kbd,
+samp,
+.mono {
+  font-family: var(--fuente-codigo);
+}
+
+:focus-visible {
+  outline: 2px solid var(--aviso);
+  outline-offset: 2px;
+}
+
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Botones ---------- */
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.6rem;
+  padding: 0.55rem 1.15rem;
+  font-weight: 650;
+  font-size: 0.97rem;
+  letter-spacing: -0.005em;
+  color: var(--sobre-accion);
+  background: var(--dato);
+  border: 1px solid transparent;
+  border-radius: var(--radio);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.boton:hover:not(:disabled) {
+  background: #8fd3ff;
+}
+
+.boton:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.boton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.boton-ataque {
+  background: var(--ataque);
+}
+.boton-ataque:hover:not(:disabled) {
+  background: #ff7b7f;
+}
+
+.boton-defensa {
+  background: var(--defensa);
+}
+.boton-defensa:hover:not(:disabled) {
+  background: #6beab8;
+}
+
+.boton-fantasma {
+  color: var(--tinta);
+  background: transparent;
+  border-color: var(--trazo-claro);
+}
+.boton-fantasma:hover:not(:disabled) {
+  background: rgba(108, 196, 255, 0.1);
+  border-color: var(--dato);
+}
+
+.boton-chico {
+  min-height: 2.1rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.88rem;
+}
+
+/* ---------- Campos de texto ---------- */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.campo > label,
+.etiqueta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tinta-suave);
+}
+
+.entrada {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--fuente-codigo);
+  font-size: 0.9rem;
+  color: var(--tinta);
+  background: var(--plano);
+  border: 1px solid var(--trazo);
+  border-radius: var(--radio);
+}
+
+.entrada::placeholder {
+  color: var(--tinta-tenue);
+}
+
+.entrada:focus {
+  outline: none;
+  border-color: var(--dato);
+  box-shadow: 0 0 0 3px rgba(108, 196, 255, 0.2);
+}
+
+textarea.entrada {
+  resize: vertical;
+  line-height: 1.55;
+}
+
+/* ---------- Chips de ejemplo / payloads ---------- */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chip {
+  max-width: 100%;
+  padding: 0.28rem 0.65rem;
+  font-family: var(--fuente-codigo);
+  font-size: 0.8rem;
+  color: var(--tinta);
+  background: transparent;
+  border: 1px dashed var(--trazo-claro);
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.chip:hover {
+  border-style: solid;
+  border-color: var(--dato);
+  background: var(--dato-fondo);
+}
+
+.chip[aria-pressed='true'] {
+  border-style: solid;
+  border-color: var(--dato);
+  background: var(--dato-fondo);
+}
+
+.chip-ataque:hover {
+  border-color: var(--ataque);
+  background: var(--ataque-fondo);
+}
+
+/* ---------- La lámina: el marco de plano técnico ---------- */
+
+.lamina {
+  position: relative;
+  background: var(--lamina);
+  border: 1px solid var(--trazo);
+  border-radius: var(--radio);
+}
+
+/* Marcas de esquina (como las de un plano impreso) */
+.lamina::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  pointer-events: none;
+  --m: var(--trazo-claro);
+  background:
+    linear-gradient(var(--m), var(--m)) top left / 11px 1px no-repeat,
+    linear-gradient(var(--m), var(--m)) top left / 1px 11px no-repeat,
+    linear-gradient(var(--m), var(--m)) top right / 11px 1px no-repeat,
+    linear-gradient(var(--m), var(--m)) top right / 1px 11px no-repeat,
+    linear-gradient(var(--m), var(--m)) bottom left / 11px 1px no-repeat,
+    linear-gradient(var(--m), var(--m)) bottom left / 1px 11px no-repeat,
+    linear-gradient(var(--m), var(--m)) bottom right / 11px 1px no-repeat,
+    linear-gradient(var(--m), var(--m)) bottom right / 1px 11px no-repeat;
+}
+
+.lamina-cuerpo {
+  padding: clamp(0.9rem, 2.4vw, 1.4rem);
+}
+
+/* Cuadro de rótulo: celdas con una etiqueta chica y un valor */
+.rotulo {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--trazo);
+  background: var(--lamina-2);
+  border-radius: var(--radio) var(--radio) 0 0;
+}
+
+.rotulo-celda {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.05rem;
+  min-width: 0;
+  padding: 0.55rem 0.95rem;
+  border-right: 1px solid var(--trazo);
+}
+
+.rotulo-celda:last-child {
+  border-right: 0;
+}
+
+.rotulo-celda.crece {
+  flex: 1 1 auto;
+}
+
+.rotulo-etiqueta {
+  font-size: 0.74rem;
+  color: var(--tinta-suave);
+  line-height: 1.2;
+}
+
+.rotulo-valor {
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 640px) {
+  .rotulo {
+    flex-wrap: wrap;
+  }
+  .rotulo-celda.crece {
+    flex-basis: 100%;
+    border-right: 0;
+    border-bottom: 1px solid var(--trazo);
+  }
+}
+
+/* ---------- Severidad ---------- */
+
+.sev {
+  --c: var(--sev-baja);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 650;
+  font-size: 0.9rem;
+}
+
+.sev::before {
+  content: '';
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, transparent);
+}
+
+.sev[data-nivel='CRITICA'] {
+  --c: var(--sev-critica);
+}
+.sev[data-nivel='ALTA'] {
+  --c: var(--sev-alta);
+}
+.sev[data-nivel='MEDIA'] {
+  --c: var(--sev-media);
+}
+.sev[data-nivel='BAJA'] {
+  --c: var(--sev-baja);
+}
+
+/* ---------- Código ---------- */
+
+.codigo {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+/* Colores de resaltado de sintaxis */
+.tk-pal {
+  color: #c4a7ff;
+}
+.tk-str {
+  color: #8fe3b3;
+}
+.tk-num {
+  color: #ffb86c;
+}
+.tk-com {
+  color: #6f89a8;
+  font-style: italic;
+}
+.tk-fn {
+  color: #7cc7ff;
+}
+
+/* ---------- Mensajes ---------- */
+
+.aviso {
+  padding: 0.7rem 0.95rem;
+  font-size: 0.93rem;
+  border: 1px solid var(--trazo-claro);
+  border-left-width: 4px;
+  border-radius: var(--radio);
+  background: var(--lamina);
+}
+.aviso-error {
+  border-color: var(--ataque);
+  background: var(--ataque-fondo);
+}
+.aviso-ok {
+  border-color: var(--defensa);
+  background: var(--defensa-fondo);
+}
+.aviso-info {
+  border-color: var(--aviso);
+  background: var(--aviso-fondo);
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
