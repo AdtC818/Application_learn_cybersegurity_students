@@ -93,4 +93,4 @@ npm run dev:frontend  # in another
 
 ## Project status
 
-Scaffolded end-to-end: all 12 detectors are implemented and unit-tested (36 passing tests), the Express API and the React UI are wired to each other, and Prisma persistence is modeled. The perception survey lives outside the app, so the app contains no survey code. Still pending: running a real Postgres migration, deploying to the free-tier targets above, and the Semgrep precision/recall benchmark described in the thesis.
+Scaffolded end-to-end: all 12 detectors are implemented and unit-tested (36 passing tests), the Express API and the React UI are wired to each other, and Prisma persistence is modeled. The page lets you save an analysis to the history (with an optional hand-typed name) and lists the saved ones; the perception survey lives outside the app, so the app contains no survey code. Still pending: running a real Postgres migration, deploying to the free-tier targets above, and the Semgrep precision/recall benchmark described in the thesis.

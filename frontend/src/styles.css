@@ -124,3 +124,138 @@ button:disabled {
   line-height: 1.5;
   color: #166534;
 }
+
+/* --- Guardar en el historial --- */
+
+.panel-guardar {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.panel-guardar label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.fila-guardar {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.fila-guardar input {
+  flex: 1 1 260px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.fila-guardar button {
+  margin-top: 0;
+}
+
+.ayuda {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.mensaje-ok {
+  margin-bottom: 1rem;
+  padding: 0.7rem 1rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* --- Historial --- */
+
+.historial {
+  margin-top: 2.5rem;
+}
+
+.historial-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.historial-encabezado h2 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.btn-secundario {
+  margin-top: 0;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.btn-secundario:disabled {
+  color: #6b7280;
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+}
+
+.banner-aviso {
+  margin-top: 0.8rem;
+  padding: 0.7rem 1rem;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.vacio {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.lista-historial {
+  list-style: none;
+  padding: 0;
+  margin: 0.8rem 0 0;
+}
+
+.item-historial {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.item-datos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.item-datos strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-meta {
+  color: #6b7280;
+  font-size: 0.8rem;
+}

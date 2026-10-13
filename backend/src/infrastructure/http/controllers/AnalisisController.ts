@@ -6,7 +6,7 @@ import { ErrorParseo } from '../../../domain/ports/ParserCodigo';
 
 const esquemaAnalizar = z.object({
   codigoFuente: z.string().min(1, 'El código fuente no puede estar vacío'),
-  nombreArchivo: z.string().optional(),
+  nombreArchivo: z.string().trim().max(120, 'El nombre no puede pasar de 120 caracteres').optional(),
   lenguaje: z.enum(['javascript', 'typescript']).optional(),
   guardarEnHistorial: z.boolean().optional(),
 });
@@ -39,7 +39,12 @@ export class AnalisisController {
 
   listarHistorial = async (req: Request, res: Response): Promise<void> => {
     try {
-      const limite = req.query.limite ? Number(req.query.limite) : undefined;
+      // Si `limite` no es un entero positivo se ignora (y el caso de uso usa su valor por defecto).
+      const limiteSolicitado = Number(req.query.limite);
+      const limite =
+        Number.isInteger(limiteSolicitado) && limiteSolicitado > 0
+          ? Math.min(limiteSolicitado, 100)
+          : undefined;
       const analisis = await this.casoUsoConsultarHistorial.ejecutar(limite);
       res.status(200).json(analisis.map((a) => a.toJSON()));
     } catch (error) {
